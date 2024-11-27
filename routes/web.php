@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuoteController;
-
+use App\Http\Controllers\JokeController;
 
 
 /*
@@ -19,7 +19,9 @@ use App\Http\Controllers\QuoteController;
 
 
 
-Route::get('/quote', [QuoteController::class, 'fetchQuote']);
+
+Route::get('/joke', [JokeController::class, 'fetchJoke']);
+
 
 
 Route::get('/', function () {
