@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +24,11 @@ Route::get('/', function () {
 Route::get('/teams', function(){
     return view('pages.teams');
 })->name('teams');
+
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
+Route::get('/teams/{id}', [TeamController::class, 'show'])->name('teams.show');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
