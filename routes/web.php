@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\JokeController;
+
 
 
 /*
@@ -31,6 +34,11 @@ Route::get('/', function () {
 Route::get('/teams', function(){
     return view('pages.teams');
 })->name('teams');
+
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
+Route::get('/teams/{id}', [TeamController::class, 'show'])->name('teams.show');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

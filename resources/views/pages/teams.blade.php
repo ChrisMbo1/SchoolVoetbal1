@@ -6,6 +6,7 @@
     display:flex;
     flex-wrap: wrap;
     gap: 30px;
+
     }
 
     .teams{
