@@ -1,63 +1,37 @@
 @extends('layouts.app')
 
-@vite(['resources/css/main.css',])
-
 @section('content')
 <div class="container">
     <div class="background">
         <h2>Here comes the background image</h2>
     </div>
 
-    <h1 style="width: 100%; text-align: center; margin-bottom: 20px;">Ongoing Tournaments</h1>
+    <h1 style="width: 100%; text-align: center; margin-bottom: 20px; color:white;">Ongoing Tournaments</h1>
 
-    
-    <div class="card">
-        <div class="card-header">Tournament 1</div>
-        <div class="card-content">
-            <h2>Exciting Battles Await!</h2>
-            <p>Starts: Nov 25, 2024</p>
-            <p>Ends: Dec 1, 2024</p>
-        </div>
-        <div class="card-actions">
-            <button class="btn-primary">Details</button>
-        </div>
-    </div>
 
-    <div class="card">
-        <div class="card-header">Tournament 2</div>
-        <div class="card-content">
-            <h2>Pro Gamers Assemble!</h2>
-            <p>Starts: Nov 26, 2024</p>
-            <p>Ends: Dec 3, 2024</p>
-        </div>
-        <div class="card-actions">
-            <button class="btn-primary">Details</button>
-        </div>
-    </div>
 
-    <div class="card">
-        <div class="card-header">Tournament 3</div>
-        <div class="card-content">
-            <h2>Casual Fun and Challenges</h2>
-            <p>Starts: Nov 28, 2024</p>
-            <p>Ends: Dec 5, 2024</p>
+    @if (isset($error))
+        <div class="alert alert-danger">
+            {{ $error }}
         </div>
-        <div class="card-actions">
-            <button class="btn-primary">Details</button>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-header">Tournament 4</div>
-        <div class="card-content">
-            <h2>Special Event Tournament</h2>
-            <p>Starts: Nov 30, 2024</p>
-            <p>Ends: Dec 7, 2024</p>
-        </div>
-        <div class="card-actions">
-            <button class="btn-primary">Details</button>
-        </div>
-    </div>
+    @else
+        @foreach ($tournaments as $tournament)
+            <div class="card">
+                <div class="card-header">{{ $tournament['name'] }}</div>
+                <div class="card-content">
+                    @foreach ($tournament['matches'] as $match)
+                        <h2>{{ $match['team1'] ?? 'Team 1' }} vs {{ $match['team2'] ?? 'Team 2' }}</h2>
+                        <p>Start Time: {{ \Carbon\Carbon::parse($match['startTime'])->format('M d, Y h:i A') }}</p>
+                        <p>Status: {{ $match['finished'] ? 'Finished' : 'not starter yet' }}</p>
+                        @break
+                    @endforeach
+                </div>
+                <div class="card-actions">
+                    <button class="btn-primary">Details</button>
+                </div>
+            </div>
+        @endforeach
+    @endif
     
     <div class="form-section">
         <h2>Test Form</h2>

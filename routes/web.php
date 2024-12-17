@@ -6,7 +6,7 @@ use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\JokeController;
-
+use App\Http\Controllers\TournamentController;
 
 
 /*
@@ -27,9 +27,8 @@ Route::get('/joke', [JokeController::class, 'fetchJoke']);
 
 
 
-Route::get('/', function () {
-    return view('pages.index');
-})->name('home');
+Route::get('/', [TournamentController::class, 'index']);
+
 
 Route::get('/teams', function(){
     return view('pages.teams');
