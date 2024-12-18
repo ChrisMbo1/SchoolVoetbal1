@@ -87,50 +87,29 @@
                 </thead>
                 <tbody>
                 @foreach($tournament['matches'] ?? [] as $match)
-                      <tr>
-                            <td>
-                                {{ $match['team1']['name'] ?? 'Unknown' }}
-                                vs
-                                {{ $match['team2']['name'] ?? 'Unknown' }}
-                            </td>
+                    <tr>
+                        <td>
+                            {{ $match['team1']['name'] ?? 'Unknown' }}
+                            vs
+                            {{ $match['team2']['name'] ?? 'Unknown' }}
+                        </td>
 
-                            <td>
-                                {{ isset($match['startTime']) ? \Carbon\Carbon::parse($match['startTime'])->format('M d, Y h:i A') : 'TBD' }}
-                            </td>
+                        <td>
+                            {{ isset($match['startTime']) ? \Carbon\Carbon::parse($match['startTime'])->format('M d, Y h:i A') : 'TBD' }}
+                        </td>
 
-                            <td class="{{ isset($match['finished']) && $match['finished'] ? 'status-finished' : 'status-ongoing' }}">
-                                {{ isset($match['finished']) && $match['finished'] ? 'Finished' : 'Not started yet' }}
-                            </td>
+                        <td class="{{ isset($match['finished']) && $match['finished'] ? 'status-finished' : 'status-ongoing' }}">
+                            {{ isset($match['finished']) && $match['finished'] ? 'Finished' : 'Not started yet' }}
+                        </td>
 
-                            <td>
-                                <a href="{{ route('team.details', ['id' => $match['id']]) }}" class="btn-view">View Team</a>
-                            </td>
-                        </tr>
-                    @endforeach`
+                        <td>
+                            <!-- View Team button for each team -->
+                            <a href="{{ route('team.details', ['id' => $match['id']]) }}" class="btn-view">View Team</a>
+                        </td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
-            <h2>Tournament: {{ $tournament['name'] ?? 'N/A' }}</h2> <!-- Added fallback for 'name' -->
-            @foreach($tournament['matches'] ?? [] as $match) <!-- Ensure matches exists before looping -->
-                <div class="match">
-                    @php
-                    //dd($tournaments);
-                    @endphp
-                    <h1>{{ $match['team1']['name'] ?? 'Unknown' }} vs {{ $match['team2']['name'] ?? 'Unknown' }}</h1>
-
-
-                    
-                    <p class="start-time">
-                        Start Time: 
-                        {{ $match['startTime'] ? \Carbon\Carbon::parse($match['startTime'])->format('M d, Y h:i A') : 'TBD' }}
-                    </p>
-                    <p class="{{ $match['finished'] ? 'status-finished' : 'status-ongoing' }}">
-                        Status: {{ $match['finished'] ? 'Finished' : 'not started yet' }}
-                    </p>
-                    <a href="{{ route('showMatches', ['id' => $match['id']]) }}" class="btn btn-primary">View Match</a>
-                </div>
-            @endforeach
         @endforeach
     </div>
 @endsection
-
-
