@@ -21,12 +21,6 @@ class MatchesController extends Controller
                 'verify' => false,  // Disable SSL verification for local development
             ]);
             $tournaments = json_decode($response->getBody()->getContents(), true);
-
-            // Debug: Check the structure of the data
-            // You can dump the data temporarily to inspect its structure
-            // dd($tournaments);
-
-            // Return the view with the tournament data
             //dd($tournaments);
             return view('pages.matches', compact('tournaments'));
 

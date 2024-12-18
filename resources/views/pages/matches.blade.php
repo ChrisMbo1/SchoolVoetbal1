@@ -73,6 +73,9 @@
             <h2>Tournament: {{ $tournament['name'] ?? 'N/A' }}</h2> <!-- Added fallback for 'name' -->
             @foreach($tournament['matches'] ?? [] as $match) <!-- Ensure matches exists before looping -->
                 <div class="match">
+                    @php
+                    //dd($tournaments);
+                    @endphp
                     <h1>{{ $match['team1']['name'] ?? 'Unknown' }} vs {{ $match['team2']['name'] ?? 'Unknown' }}</h1>
 
 
