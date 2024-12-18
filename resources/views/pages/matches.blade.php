@@ -123,7 +123,6 @@
                         Start Time: 
                         {{ $match['startTime'] ? \Carbon\Carbon::parse($match['startTime'])->format('M d, Y h:i A') : 'TBD' }}
                     </p>
-                    <h1>score 1: {{ $match['team1Score'] ?? 'Unknown' }} | score 2: {{ $match['team2Score'] ?? 'Unknown' }}</h1>
                     <p class="{{ $match['finished'] ? 'status-finished' : 'status-ongoing' }}">
                         Status: {{ $match['finished'] ? 'Finished' : 'not started yet' }}
                     </p>
@@ -133,3 +132,5 @@
         @endforeach
     </div>
 @endsection
+
+
