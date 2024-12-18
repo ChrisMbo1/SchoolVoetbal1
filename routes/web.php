@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TeamController;
@@ -21,7 +22,7 @@ use App\Http\Controllers\MatchesController;
 */
 
 
-
+Route::get("/pages/login", [HomeController::class, 'index'])->name('login');
 
 Route::get('/teams', [MatchesController::class, 'index'])->name('teams');
 
