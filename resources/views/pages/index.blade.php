@@ -22,7 +22,7 @@
                     @foreach ($tournament['matches'] as $match)
                         <h2>{{ $match['team1'] ?? 'Team 1' }} vs {{ $match['team2'] ?? 'Team 2' }}</h2>
                         <p>Start Time: {{ \Carbon\Carbon::parse($match['startTime'])->format('M d, Y h:i A') }}</p>
-                        <p>Status: {{ $match['finished'] ? 'Finished' : 'not starter yet' }}</p>
+                        <p>Status: {{ $match['finished'] ? 'Finished' : 'not started yet' }}</p>
                         @break
                     @endforeach
                 </div>
@@ -34,7 +34,7 @@
     @endif
     
     <div class="form-section">
-        <h2>Test Form</h2>
+        <h2>Test Form <b style="color:red;">not functional yet</b></h2>
         <form action="" method="POST">
             @csrf
             <div class="form-group">
