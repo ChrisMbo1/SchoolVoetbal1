@@ -3,7 +3,7 @@
 // app/Http/Controllers/MatchesController.php
 
 namespace App\Http\Controllers;
-
+use App\Models\Team;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -57,5 +57,11 @@ class MatchesController extends Controller
             // Handle exceptions (e.g., network errors, API errors)
             return back()->withErrors(['error' => 'Failed to fetch match details.']);
         }
+    }
+
+    public function show($id)
+    {
+        $team = Team::findOrFail($id); // Retrieve the team by ID
+        return view('pages.teamdetails', compact('team'));
     }
 }

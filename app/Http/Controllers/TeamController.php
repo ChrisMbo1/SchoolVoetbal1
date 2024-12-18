@@ -21,7 +21,7 @@ class TeamController extends Controller
            ->paginate(10);  // Paginate the results, 10 matches per page
 
        // Return the team and matches to the 'team.details' view
-       return view('team.details', compact('team', 'matches'));
+       return view('teamdetails', compact('team', 'matches'));
     }
 
 }

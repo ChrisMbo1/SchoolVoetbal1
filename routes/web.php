@@ -34,7 +34,10 @@ Route::get('/home', [TournamentController::class, 'index'])->name('home');
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
 Route::get('/teams/{id}', [TeamController::class, 'show'])->name('teams.show');
-Route::get('team/{id}', [TeamController::class, 'show'])->name('team.details');
+// web.php
+Route::get('/teamdetails/{id}', [TeamController::class, 'show'])->name('teamdetails');
+
+
 
 
 Route::get('/dashboard', function () {

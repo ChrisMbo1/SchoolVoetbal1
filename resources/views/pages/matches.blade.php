@@ -104,7 +104,7 @@
 
                         <td>
                             <!-- View Team button for each team -->
-                            <a href="{{ route('team.details', ['id' => $match['id']]) }}" class="btn-view">View Team</a>
+                            <a href="{{ route('teamdetails', ['id' => $match['id']]) }}" class="btn-view">View Team</a>
                         </td>
                     </tr>
                 @endforeach
