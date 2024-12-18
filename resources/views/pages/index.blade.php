@@ -20,7 +20,7 @@
                 <div class="card-header">{{ $tournament['name'] }}</div>
                 <div class="card-content">
                     @foreach ($tournament['matches'] as $match)
-                        <h2>{{ $match['team1'] ?? 'Team 1' }} vs {{ $match['team2'] ?? 'Team 2' }}</h2>
+                        <h2>{{ $match['team1']['name'] ?? 'Unknown' }} vs {{ $match['team2']['name'] ?? 'Unknown' }}</h2>
                         <p>Start Time: {{ \Carbon\Carbon::parse($match['startTime'])->format('M d, Y h:i A') }}</p>
                         <p>Status: {{ $match['finished'] ? 'Finished' : 'not started yet' }}</p>
                         @break

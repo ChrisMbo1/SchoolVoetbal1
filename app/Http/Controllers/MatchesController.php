@@ -31,4 +31,18 @@ class MatchesController extends Controller
             return view('pages.matches', compact('tournaments'));
 
     }
+
+    // app/Http/Controllers/MatchesController.php
+
+    public function show($id)
+    {
+        // Fetch match details based on ID
+        
+        
+        // Or use any method to retrieve the match data
+        
+        // Return a view with match details
+        return view('', compact('match'));
+    }
+
 }

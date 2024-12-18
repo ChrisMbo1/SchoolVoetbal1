@@ -41,6 +41,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// web.php (routes)
+Route::get('/matches/{id}', [MatchesController::class, 'show'])->name('showMatches');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

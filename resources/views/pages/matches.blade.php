@@ -73,7 +73,7 @@
             <h2>Tournament: {{ $tournament['name'] ?? 'N/A' }}</h2> <!-- Added fallback for 'name' -->
             @foreach($tournament['matches'] ?? [] as $match) <!-- Ensure matches exists before looping -->
                 <div class="match">
-                    <h1>{{ $match['team1']['name'] ?? 'Unknown' }} vs {{ $match['team1']['name'] ?? 'Unknown' }}</h1>
+                    <h1>{{ $match['team1']['name'] ?? 'Unknown' }} vs {{ $match['team2']['name'] ?? 'Unknown' }}</h1>
 
 
                     
@@ -82,9 +82,9 @@
                         {{ $match['startTime'] ? \Carbon\Carbon::parse($match['startTime'])->format('M d, Y h:i A') : 'TBD' }}
                     </p>
                     <p class="{{ $match['finished'] ? 'status-finished' : 'status-ongoing' }}">
-                        Status: {{ $match['finished'] ? 'Finished' : 'Ongoing' }}
+                        Status: {{ $match['finished'] ? 'Finished' : 'not started yet' }}
                     </p>
-                    <p>Field: {{ $match['field'] ?? 'Unknown' }}</p>
+                    <a href="{{ route('showMatches', ['id' => $match['id']]) }}" class="btn btn-primary">View Match</a>
                 </div>
             @endforeach
         @endforeach
