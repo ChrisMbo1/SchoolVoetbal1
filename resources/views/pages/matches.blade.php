@@ -98,18 +98,18 @@
                             {{ isset($match['startTime']) ? \Carbon\Carbon::parse($match['startTime'])->format('M d, Y h:i A') : 'TBD' }}
                         </td>
 
-                        <td class="{{ isset($match['finished']) && $match['finished'] ? 'status-finished' : 'status-ongoing' }}">
-                            {{ isset($match['finished']) && $match['finished'] ? 'Finished' : 'Not started yet' }}
-                        </td>
 
-                        <td>
-                            <!-- View Team button for each team -->
-                            <a href="{{ route('teamdetails', ['id' => $match['id']]) }}" class="btn-view">View Team</a>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+                    <p class="start-time">
+                        Start Time:
+                        {{ $match['startTime'] ? \Carbon\Carbon::parse($match['startTime'])->format('M d, Y h:i A') : 'TBD' }}
+                    </p>
+                    <h1>score 1: {{ $match['team1Score'] ?? 'Unknown' }} | score 2: {{ $match['team2Score'] ?? 'Unknown' }}</h1>
+                    <p class="{{ $match['finished'] ? 'status-finished' : 'status-ongoing' }}">
+                        Status: {{ $match['finished'] ? 'Finished' : 'not started yet' }}
+                    </p>
+                    <a href="{{ route('showMatches', ['id' => $match['id']]) }}" class="btn btn-primary">View Match</a>
+                </div>
+            @endforeach
         @endforeach
     </div>
 @endsection

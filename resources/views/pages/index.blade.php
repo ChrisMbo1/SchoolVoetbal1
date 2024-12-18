@@ -6,7 +6,14 @@
         <h2 style="font-size: 36px; text-shadow: 2px 2px 5px rgba(0,0,0,0.7);">Here comes the background image</h2>
     </div>
 
-    <h1 style="width: 100%; text-align: center; margin: 40px 0; color: #343a40;">Ongoing Tournaments</h1>
+    <h1 style="width: 100%; text-align: center; margin-bottom: 20px; color:white;">Ongoing Tournaments</h1>
+
+    @if (Cookie::get('token'))
+        <div class="alert alert-success">
+            Token: {{ Cookie::get('token') }}
+        </div>
+    @endif
+
 
     @if (isset($error))
         <div class="alert alert-danger" style="text-align: center; margin-bottom: 20px;">
@@ -21,8 +28,8 @@
                 <div class="card-content" style="padding: 15px;">
                     @foreach ($tournament['matches'] as $match)
                         <h3 style="margin: 0; font-size: 18px; color: #343a40;">
-                            {{ $match['team1']['name'] ?? 'Unknown' }} ({{ $match['team1Score'] ?? '-' }}) 
-                            vs 
+                            {{ $match['team1']['name'] ?? 'Unknown' }} ({{ $match['team1Score'] ?? '-' }})
+                            vs
                             {{ $match['team2']['name'] ?? 'Unknown' }} ({{ $match['team2Score'] ?? '-' }})
                         </h3>
                         <p style="color: #555; margin: 5px 0;">Start Time: {{ \Carbon\Carbon::parse($match['startTime'])->format('M d, Y h:i A') }}</p>
@@ -33,29 +40,29 @@
             </div>
         @endforeach
     @endif
-    
-    <div class="form-section" style="margin-top: 40px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
-        <h2 style="text-align: center; color: #007bff; margin-bottom: 20px;">Test Form <b style="color:red;">not functional yet</b></h2>
+
+    <div class="form-section">
+        <h2>Test Form <b style="color:red;">not functional yet</b></h2>
         <form action="" method="POST">
             @csrf
             <div class="form-group" style="margin-bottom: 15px;">
                 <label for="name" style="display: block; font-weight: bold; margin-bottom: 5px;">Name</label>
                 <input type="text" id="name" name="name" placeholder="Enter your name" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
             </div>
-            
-            <div class="form-group" style="margin-bottom: 15px;">
-                <label for="email" style="display: block; font-weight: bold; margin-bottom: 5px;">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
             </div>
-            
-            <div class="form-group" style="margin-bottom: 15px;">
-                <label for="password" style="display: block; font-weight: bold; margin-bottom: 5px;">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
             </div>
-            
-            <div class="form-group" style="margin-bottom: 15px;">
-                <label for="message" style="display: block; font-weight: bold; margin-bottom: 5px;">Message</label>
-                <textarea id="message" name="message" placeholder="Enter your message" rows="5" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Enter your message" rows="5" required></textarea>
             </div>
 
             <button type="submit" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">

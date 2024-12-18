@@ -22,8 +22,13 @@ use App\Http\Controllers\MatchesController;
 */
 
 
-Route::get("/pages/login", [HomeController::class, 'index'])->name('login');
 
+Route::get("/login2", [HomeController::class, 'index'])->name('login2');
+
+
+Route::post('/login3', [HomeController::class, 'login'])->name('pages.login');
+Route::get('/register2', [HomeController::class, 'showRegisterForm'])->name('register2');
+Route::post('/register3', [HomeController::class, 'register'])->name('pages.register');
 Route::get('/teams', [MatchesController::class, 'index'])->name('teams');
 
 Route::get('/joke', [JokeController::class, 'fetchJoke']);
