@@ -59,9 +59,4 @@ class MatchesController extends Controller
         }
     }
 
-    public function show($id)
-    {
-        $team = Team::findOrFail($id); // Retrieve the team by ID
-        return view('pages.teamdetails', compact('team'));
-    }
 }

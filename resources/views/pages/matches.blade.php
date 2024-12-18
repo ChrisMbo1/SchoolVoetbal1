@@ -24,14 +24,20 @@
         border-bottom: 1px solid #ddd;
     }
 
+    /* Improved styling for table headers */
     th {
-        background-color: #2c3e50;
+        background-color:rgb(77, 77, 77); /* A more vibrant blue */
         color: #fff;
         font-weight: bold;
+        text-transform: uppercase; /* Ensures headers are in uppercase */
+        letter-spacing: 1px;
+        border-top-left-radius: 8px; /* Rounded top-left corners */
+        border-top-right-radius: 8px; /* Rounded top-right corners */
     }
 
+    /* Styling for table data */
     td {
-        color: #34495e;
+        color:rgb(0, 0, 0);
     }
 
     /* Highlight for status */
@@ -45,7 +51,7 @@
         font-weight: bold;
     }
 
-    /* Action button */
+    /* Action button styling */
     .btn-view {
         display: inline-block;
         padding: 8px 12px;
@@ -61,7 +67,7 @@
         background-color: #0056b3;
     }
 
-    /* Table header for tournaments */
+    /* Tournament header styling */
     .tournament-header {
         font-size: 24px;
         font-weight: bold;
@@ -98,18 +104,19 @@
                             {{ isset($match['startTime']) ? \Carbon\Carbon::parse($match['startTime'])->format('M d, Y h:i A') : 'TBD' }}
                         </td>
 
+                        <td>
+                            <p class="{{ $match['finished'] ? 'status-finished' : 'status-ongoing' }}">
+                                Status: {{ $match['finished'] ? 'Finished' : 'Not started yet' }}
+                            </p>
+                        </td>
 
-                    <p class="start-time">
-                        Start Time:
-                        {{ $match['startTime'] ? \Carbon\Carbon::parse($match['startTime'])->format('M d, Y h:i A') : 'TBD' }}
-                    </p>
-                    <h1>score 1: {{ $match['team1Score'] ?? 'Unknown' }} | score 2: {{ $match['team2Score'] ?? 'Unknown' }}</h1>
-                    <p class="{{ $match['finished'] ? 'status-finished' : 'status-ongoing' }}">
-                        Status: {{ $match['finished'] ? 'Finished' : 'not started yet' }}
-                    </p>
-                    <a href="{{ route('showMatches', ['id' => $match['id']]) }}" class="btn btn-primary">View Match</a>
-                </div>
-            @endforeach
+                        <td>
+                            <a href="{{ route('showMatches', ['id' => $match['id']]) }}" class="btn-view">View Match</a>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
         @endforeach
     </div>
 @endsection

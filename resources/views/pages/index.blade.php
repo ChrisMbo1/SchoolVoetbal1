@@ -6,13 +6,7 @@
         <h2 style="font-size: 36px; text-shadow: 2px 2px 5px rgba(0,0,0,0.7);">Here comes the background image</h2>
     </div>
 
-    <h1 style="width: 100%; text-align: center; margin-bottom: 20px; color:white;">Ongoing Tournaments</h1>
-
-    @if (Cookie::get('token'))
-        <div class="alert alert-success">
-            Token: {{ Cookie::get('token') }}
-        </div>
-    @endif
+    <h1 style="width: 100%; text-align: center; margin-bottom: 20px; color:black;">Ongoing Tournaments</h1>
 
 
     @if (isset($error))
