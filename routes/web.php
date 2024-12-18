@@ -27,21 +27,19 @@ Route::get('/teams', [MatchesController::class, 'index'])->name('teams');
 
 Route::get('/joke', [JokeController::class, 'fetchJoke']);
 
-
-
 Route::get('/', [TournamentController::class, 'index']);
 Route::get('/home', [TournamentController::class, 'index'])->name('home');
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
 Route::get('/teams/{id}', [TeamController::class, 'show'])->name('teams.show');
+Route::get('team/{id}', [TeamController::class, 'show'])->name('team.details');
 
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// web.php (routes)
 Route::get('/matches/{id}', [MatchesController::class, 'show'])->name('showMatches');
 
 Route::middleware('auth')->group(function () {

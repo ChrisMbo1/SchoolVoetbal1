@@ -1,94 +1,114 @@
 @extends('layouts.app')
 
 <style>
-    /* Main container for tournaments */
-    .container-teams {
-        margin-top: 30px;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Grid layout for responsiveness */
-        gap: 30px;
+    /* Table container */
+    .table-container {
+        margin: 30px auto;
+        max-width: 1200px;
         padding: 20px;
-    }
-
-    /* Tournament header */
-    h2 {
-        font-size: 28px;
-        font-weight: bold;
-        color: #2c3e50;
-        margin-top: 20px;
-        text-align: center;
-        grid-column: span 2; /* Ensures the tournament title spans across the grid */
-    }
-
-    /* Match container */
-    .match {
-        background-color: #ecf0f1;
+        background-color: #f9f9f9;
         border-radius: 8px;
-        padding: 20px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    /* Match title (team names) */
-    .match h3 {
-        font-size: 22px;
+    /* Table styling */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #2c3e50;
+        color: #fff;
         font-weight: bold;
+    }
+
+    td {
         color: #34495e;
-        margin-bottom: 10px;
     }
 
-    /* Match details (start time, status, and field) */
-    .match p {
-        font-size: 16px;
-        color: #7f8c8d;
-        margin-bottom: 8px;
-    }
-
-    /* Highlight 'Ongoing' status */
-    .match p.status-ongoing {
+    /* Highlight for status */
+    .status-ongoing {
         color: #e74c3c;
         font-weight: bold;
     }
 
-    /* Highlight 'Finished' status */
-    .match p.status-finished {
+    .status-finished {
         color: #2ecc71;
         font-weight: bold;
     }
 
-    /* Style for date and time */
-    .match p.start-time {
-        font-style: italic;
-        color: #95a5a6;
+    /* Action button */
+    .btn-view {
+        display: inline-block;
+        padding: 8px 12px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 14px;
+        transition: background-color 0.2s;
+    }
+
+    .btn-view:hover {
+        background-color: #0056b3;
+    }
+
+    /* Table header for tournaments */
+    .tournament-header {
+        font-size: 24px;
+        font-weight: bold;
+        color: #2c3e50;
+        margin-bottom: 10px;
     }
 </style>
 
 @section('content')
     <h1 class="text-center mb-5" style="font-size: 36px; font-weight: bold; color: #333;">All Available Matches</h1>
 
-    <div class="container-teams">
+    <div class="table-container">
         @foreach($tournaments as $tournament)
-            <h2>Tournament: {{ $tournament['name'] ?? 'N/A' }}</h2> <!-- Added fallback for 'name' -->
-            @foreach($tournament['matches'] ?? [] as $match) <!-- Ensure matches exists before looping -->
-                <div class="match">
-                    <h1>{{ $match['team1']['name'] ?? 'Unknown' }} vs {{ $match['team2']['name'] ?? 'Unknown' }}</h1>
+            <div class="tournament-header">Tournament: {{ $tournament['name'] ?? 'N/A' }}</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Match</th>
+                        <th>Start Time</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach($tournament['matches'] ?? [] as $match)
+                      <tr>
+                            <td>
+                                {{ $match['team1']['name'] ?? 'Unknown' }}
+                                vs
+                                {{ $match['team2']['name'] ?? 'Unknown' }}
+                            </td>
 
+                            <td>
+                                {{ isset($match['startTime']) ? \Carbon\Carbon::parse($match['startTime'])->format('M d, Y h:i A') : 'TBD' }}
+                            </td>
 
-                    
-                    <p class="start-time">
-                        Start Time: 
-                        {{ $match['startTime'] ? \Carbon\Carbon::parse($match['startTime'])->format('M d, Y h:i A') : 'TBD' }}
-                    </p>
-                    <p class="{{ $match['finished'] ? 'status-finished' : 'status-ongoing' }}">
-                        Status: {{ $match['finished'] ? 'Finished' : 'not started yet' }}
-                    </p>
-                    <a href="{{ route('showMatches', ['id' => $match['id']]) }}" class="btn btn-primary">View Match</a>
-                </div>
-            @endforeach
+                            <td class="{{ isset($match['finished']) && $match['finished'] ? 'status-finished' : 'status-ongoing' }}">
+                                {{ isset($match['finished']) && $match['finished'] ? 'Finished' : 'Not started yet' }}
+                            </td>
+
+                            <td>
+                                <a href="{{ route('team.details', ['id' => $match['id']]) }}" class="btn-view">View Team</a>
+                            </td>
+                        </tr>
+                    @endforeach`
+                </tbody>
+            </table>
         @endforeach
     </div>
 @endsection
-
-

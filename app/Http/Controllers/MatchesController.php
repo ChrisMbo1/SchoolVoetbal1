@@ -15,34 +15,47 @@ class MatchesController extends Controller
         // Initialize Guzzle HTTP Client
         $client = new Client();
 
-        // Fetch match data from the API
-
+        try {
+            // Fetch tournament data from the API
             $response = $client->get('https://localhost:7005/tourneys', [
                 'verify' => false,  // Disable SSL verification for local development
             ]);
+            
+            // Decode the JSON response into an array
             $tournaments = json_decode($response->getBody()->getContents(), true);
 
-            // Debug: Check the structure of the data
-            // You can dump the data temporarily to inspect its structure
-            // dd($tournaments);
-
             // Return the view with the tournament data
-            //dd($tournaments);
             return view('pages.matches', compact('tournaments'));
-
+        } catch (RequestException $e) {
+            // Handle exceptions (e.g., network errors, API errors)
+            return back()->withErrors(['error' => 'Failed to fetch tournament data.']);
+        }
     }
-
-    // app/Http/Controllers/MatchesController.php
 
     public function show($id)
     {
-        // Fetch match details based on ID
-        
-        
-        // Or use any method to retrieve the match data
-        
-        // Return a view with match details
-        return view('', compact('match'));
-    }
+        // Initialize Guzzle HTTP Client
+        $client = new Client();
 
+        try {
+            // Fetch match details based on ID from the API
+            $response = $client->get('https://localhost:7005/tourneys/matches/' . $id, [
+                'verify' => false,  // Disable SSL verification for local development
+            ]);
+            
+            // Decode the JSON response into an array
+            $match = json_decode($response->getBody()->getContents(), true);
+
+            // Check if match data exists
+            if (!$match) {
+                return redirect()->route('matches.index')->withErrors(['error' => 'Match not found.']);
+            }
+
+            // Return the view with match details
+            return view('pages.match_details', compact('match'));
+        } catch (RequestException $e) {
+            // Handle exceptions (e.g., network errors, API errors)
+            return back()->withErrors(['error' => 'Failed to fetch match details.']);
+        }
+    }
 }
