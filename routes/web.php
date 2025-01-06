@@ -21,6 +21,13 @@ use App\Http\Controllers\MatchesController;
 |
 */
 
+use App\Http\Controllers\BetController;
+
+Route::post('/bet/place', [BetController::class, 'placeBet'])->name('bet.place');
+
+Route::get('/bet', function () {
+    return view('pages.bets'); // This loads the 'bets.blade.php' file
+})->name('bet.view');
 
 
 Route::get("/login2", [HomeController::class, 'index'])->name('login2');
